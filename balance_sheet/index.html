@@ -4,121 +4,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Balance Sheet</title>
-  <link rel="stylesheet" href="./styles.css">
+  <title>AcmeWidgetCorp - Financial Dashboard</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #475569;
+      --accent: #f59e0b;
+      --light: #f8fafc;
+      --dark: #1e293b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #f1f5f9;
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+    
+    .company-name {
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .flex {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    
+    .dashboard-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .year-selector {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .year-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #cbd5e1;
+      background-color: #fff;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .year-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-title {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .card-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-trend {
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .positive {
+      color: var(--success);
+    }
+    
+    .negative {
+      color: var(--danger);
+    }
+    
+    .neutral {
+      color: var(--secondary);
+    }
+    
+    .table-container {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .table-wrap {
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    caption {
+      background-color: var(--primary);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 1rem;
+      text-align: left;
+    }
+    
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    
+    thead tr {
+      background-color: #f8fafc;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    tbody tr {
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+    
+    th {
+      font-weight: 600;
+    }
+    
+    .description {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: normal;
+      color: var(--secondary);
+      margin-top: 0.25rem;
+    }
+    
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+    
+    .data:hover {
+      background-color: #f1f5f9;
+    }
+    
+    .total {
+      background-color: #f8fafc;
+      font-weight: 700;
+    }
+
+    .current {
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    
+    .chart-container {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .chart-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--secondary);
+      font-size: 0.875rem;
+    }
+    
+    @media (max-width: 768px) {
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      h1 .flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 
 <body>
   <main>
-    <section>
+    <header>
       <h1>
         <span class="flex">
-          <span>AcmeWidgetCorp</span>
-          <span>Balance Sheet</span>
+          <span class="company-name">AcmeWidgetCorp</span>
         </span>
       </h1>
-      <div id="years" aria-hidden="true">
-        <span class="year">2019</span>
-        <span class="year">2020</span>
-        <span class="year">2021</span>
+      <div class="last-updated">
+        Last updated: April 30, 2025
       </div>
-      <div class="table-wrap">
-        <table>
-          <caption>Assets</caption>
-          <thead>
-            <tr>
-              <td></td>
-              <th><span class="sr-only year">2019</span></th>
-              <th><span class="sr-only year">2020</span></th>
-              <th class="current"><span class="sr-only year">2021</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="data">
-              <th>Cash <span class="description">This is the cash we currently have on hand.</span></th>
-              <td>$25</td>
-              <td>$30</td>
-              <td class="current">$28</td>
-            </tr>
-            <tr class="data">
-              <th>Checking <span class="description">Our primary transactional account.</span></th>
-              <td>$54</td>
-              <td>$56</td>
-              <td class="current">$53</td>
-            </tr>
-            <tr class="data">
-              <th>Savings <span class="description">Funds set aside for emergencies.</span></th>
-              <td>$500</td>
-              <td>$650</td>
-              <td class="current">$728</td>
-            </tr>
-            <tr class="total">
-              <th>Total <span class="sr-only">Assets</span></th>
-              <td>$579</td>
-              <td>$736</td>
-              <td class="current">$809</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Liabilities</caption>
-          <thead>
-            <tr>
-              <td></td>
-              <th><span class="sr-only">2019</span></th>
-              <th><span class="sr-only">2020</span></th>
-              <th><span class="sr-only">2021</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="data">
-              <th>Loans <span class="description">The outstanding balance on our startup loan.</span></th>
-              <td>$500</td>
-              <td>$250</td>
-              <td class="current">$0</td>
-            </tr>
-            <tr class="data">
-              <th>Expenses <span class="description">Annual anticipated expenses, such as payroll.</span></th>
-              <td>$200</td>
-              <td>$300</td>
-              <td class="current">$400</td>
-            </tr>
-            <tr class="data">
-              <th>Credit <span class="description">The outstanding balance on our credit card.</span></th>
-              <td>$50</td>
-              <td>$50</td>
-              <td class="current">$75</td>
-            </tr>
-            <tr class="total">
-              <th>Total <span class="sr-only">Liabilities</span></th>
-              <td>$750</td>
-              <td>$600</td>
-              <td class="current">$475</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Net Worth</caption>
-          <thead>
-            <tr>
-              <td></td>
-              <th><span class="sr-only">2019</span></th>
-              <th><span class="sr-only">2020</span></th>
-              <th><span class="sr-only">2021</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="total">
-              <th>Total <span class="sr-only">Net Worth</span></th>
-              <td>$-171</td>
-              <td>$136</td>
-              <td class="current">$334</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-</body>
+    </header>
 
-</html>
+    <div class="dashboard-header">
+      <div>
+        <h2 class="dashboard-title">Financial Dashboard</h2>
+        <p>Comprehensive view of company financials from 2019-2021</p>
+      </div>
+      <div class="year-selector">
+        <button class="year-btn" data-year="2019">2019</button>
+        <button class="year-btn" data-year="2020">2020</button>
+        <button class="year-btn active" data-year="2021">2021</button>
+      </div>
+    </div>
+
+    <div class="summary-cards">
+      <div class="card">
+        <div class="card-title">Total Assets</div>
+        <div class="card-value">$809</div>
+        <div class="card-trend positive">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+          <span>+9.9% from 2020</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Liabilities</div>
+        <div class="card-value">$475</div>
+        <div class="card-trend positive">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
