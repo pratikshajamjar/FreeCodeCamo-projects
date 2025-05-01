@@ -1,72 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cafe Menu</title>
-  <link href="styles.css" rel="stylesheet" />
+  <title>Mountain Brew Cafe</title>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    
+    .menu {
+      background-color: #fff;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      font-family: 'Georgia', serif;
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 0;
+      color: #5d4037;
+    }
+    
+    .established {
+      text-align: center;
+      font-style: italic;
+      margin-top: 5px;
+      color: #795548;
+    }
+    
+    hr {
+      height: 2px;
+      background-color: #a1887f;
+      border: none;
+      margin: 20px 0;
+    }
+    
+    h2 {
+      font-family: 'Georgia', serif;
+      text-align: center;
+      font-size: 28px;
+      margin: 25px 0;
+      color: #5d4037;
+    }
+    
+    section {
+      margin-bottom: 40px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    section img {
+      display: block;
+      margin: 0 auto 15px;
+      width: 80px;
+      height: auto;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      padding-bottom: 5px;
+      border-bottom: 1px dotted #d7ccc8;
+    }
+    
+    .flavor, .dessert {
+      font-size: 18px;
+      flex-grow: 1;
+      padding-right: 20px;
+    }
+    
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4e342e;
+    }
+    
+    .description {
+      font-size: 14px;
+      font-style: italic;
+      color: #6d4c41;
+      margin-top: 3px;
+      margin-bottom: 12px;
+    }
+    
+    .seasonal-badge {
+      background-color: #c62828;
+      color: white;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+    
+    .new-badge {
+      background-color: #2e7d32;
+      color: white;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+    
+    .bottom-line {
+      height: 2px;
+      background-color: #a1887f;
+      border: none;
+      margin: 30px 0 20px;
+    }
+    
+    footer {
+      text-align: center;
+    }
+    
+    footer a {
+      color: #5d4037;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    footer a:hover {
+      color: #8d6e63;
+      text-decoration: underline;
+    }
+    
+    .address {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+    
+    .contact-info {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    
+    .hours {
+      background-color: #efebe9;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    
+    .hours h3 {
+      text-align: center;
+      margin-top: 0;
+      color: #5d4037;
+    }
+    
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .hours-item {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .social-links a {
+      color: #5d4037;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    
+    .category-label {
+      background-color: #8d6e63;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 0 auto 15px;
+      font-weight: bold;
+    }
+    
+    .category-container {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
 </head>
 
 <body>
   <div class="menu">
     <main>
-      <h1>CAMPER CAFE</h1>
+      <h1>MOUNTAIN BREW</h1>
       <p class="established">Est. 2020</p>
       <hr>
+      
       <section>
-        <h2>Coffee</h2>
-        <img src="https://cdn.freecodecamp.org/curriculum/css-cafe/coffee.jpg" alt="coffee icon" />
+        <div class="category-container">
+          <div class="category-label">Coffee Specialties</div>
+        </div>
+        <img src="/api/placeholder/100/100" alt="coffee icon" />
+        
         <article class="item">
-          <p class="flavor">French Vanilla</p>
-          <p class="price">3.00</p>
+          <div>
+            <p class="flavor">French Vanilla</p>
+            <p class="description">Smooth and rich vanilla flavored coffee with a hint of caramel</p>
+          </div>
+          <p class="price">$3.50</p>
         </article>
+        
         <article class="item">
-          <p class="flavor">Caramel Macchiato</p>
-          <p class="price">3.75</p>
+          <div>
+            <p class="flavor">Caramel Macchiato <span class="seasonal-badge">Popular</span></p>
+            <p class="description">Espresso with steamed milk and vanilla, topped with caramel drizzle</p>
+          </div>
+          <p class="price">$4.25</p>
         </article>
+        
         <article class="item">
-          <p class="flavor">Pumpkin Spice</p>
-          <p class="price">3.50</p>
+          <div>
+            <p class="flavor">Pumpkin Spice <span class="seasonal-badge">Seasonal</span></p>
+            <p class="description">Our signature espresso with pumpkin spice syrup and whipped cream</p>
+          </div>
+          <p class="price">$4.50</p>
         </article>
+        
         <article class="item">
-          <p class="flavor">Hazelnut</p>
-          <p class="price">4.00</p>
+          <div>
+            <p class="flavor">Hazelnut</p>
+            <p class="description">Rich espresso blended with the nutty flavor of hazelnut</p>
+          </div>
+          <p class="price">$4.00</p>
         </article>
+        
         <article class="item">
-          <p class="flavor">Mocha</p>
-          <p class="price">4.50</p>
+          <div>
+            <p class="flavor">Mocha <span class="new-badge">New</span></p>
+            <p class="description">Chocolate and espresso blended with steamed milk and topped with whipped cream</p>
+          </div>
+          <p class="price">$4.75</p>
+        </article>
+        
+        <article class="item">
+          <div>
+            <p class="flavor">Cold Brew</p>
+            <p class="description">Slow-steeped for 24 hours for a smooth, rich flavor</p>
+          </div>
+          <p class="price">$4.50</p>
         </article>
       </section>
+      
       <section>
-        <h2>Desserts</h2>
-        <img src="https://cdn.freecodecamp.org/curriculum/css-cafe/pie.jpg" alt="pie icon" />
+        <div class="category-container">
+          <div class="category-label">Sweet Treats</div>
+        </div>
+        <img src="/api/placeholder/100/100" alt="dessert icon" />
+        
         <article class="item">
-          <p class="dessert">Donut</p>
-          <p class="price">1.50</p>
+          <div>
+            <p class="dessert">Artisan Donut</p>
+            <p class="description">Fresh-baked daily, ask about today's flavors</p>
+          </div>
+          <p class="price">$2.25</p>
         </article>
+        
         <article class="item">
-          <p class="dessert">Cherry Pie</p>
-          <p class="price">2.75</p>
+          <div>
+            <p class="dessert">Cherry Pie <span class="seasonal-badge">Seasonal</span></p>
+            <p class="description">Homemade with tart cherries and flaky crust</p>
+          </div>
+          <p class="price">$3.75</p>
         </article>
+        
         <article class="item">
-          <p class="dessert">Cheesecake</p>
-          <p class="price">3.00</p>
+          <div>
+            <p class="dessert">New York Cheesecake</p>
+            <p class="description">Classic creamy cheesecake with graham cracker crust</p>
+          </div>
+          <p class="price">$4.00</p>
         </article>
+        
         <article class="item">
-          <p class="dessert">Cinnamon Roll</p>
-          <p class="price">2.50</p>
+          <div>
+            <p class="dessert">Cinnamon Roll <span class="new-badge">New</span></p>
+            <p class="description">Warm, gooey cinnamon roll with cream cheese frosting</p>
+          </div>
+          <p class="price">$3.50</p>
+        </article>
+        
+        <article class="item">
+          <div>
+            <p class="dessert">Chocolate Brownie</p>
+            <p class="description">Rich, fudgy brownie with walnuts</p>
+          </div>
+          <p class="price">$3.25</p>
         </article>
       </section>
+      
+      <div class="hours">
+        <h3>Hours of Operation</h3>
+        <div class="hours-grid">
+          <div class="hours-item">
+            <span>Monday - Friday</span>
+            <span>6:00 AM - 8:00 PM</span>
+          </div>
+          <div class="hours-item">
+            <span>Saturday</span>
+            <span>7:00 AM - 9:00 PM</span>
+          </div>
+          <div class="hours-item">
+            <span>Sunday</span>
+            <span>8:00 AM - 6:00 PM</span>
+          </div>
+        </div>
+      </div>
+      
     </main>
+    
     <hr class="bottom-line">
+    
     <footer>
       <p>
-        <a href="https://www.freecodecamp.org" target="_blank">Visit our website</a>
+        <a href="https://www.mountainbrewcafe.com" target="_blank">Visit our website</a>
       </p>
-      <p class="address">123 Free Code Camp Drive</p>
+      <p class="address">123 Alpine Way, Mountain View</p>
+      <p class="contact-info">Phone: (555) 123-4567 | Email: hello@mountainbrew.com</p>
+      
+      <div class="social-links">
+        <a href="#" target="_blank">Facebook</a> |
+        <a href="#" target="_blank">Instagram</a> |
+        <a href="#" target="_blank">Twitter</a>
+      </div>
     </footer>
   </div>
 </body>
-
 </html>
