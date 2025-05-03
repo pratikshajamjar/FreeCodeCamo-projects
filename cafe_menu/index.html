@@ -5,41 +5,135 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mountain Brew Cafe</title>
   <style>
+    :root {
+      --primary: #5d4037;
+      --primary-light: #8d6e63;
+      --primary-dark: #4e342e;
+      --accent: #ff6f00;
+      --background: #f5f5f5;
+      --card-bg: #fff;
+      --text: #333;
+      --text-light: #6d4c41;
+      --border: #d7ccc8;
+      --badge-new: #2e7d32;
+      --badge-seasonal: #c62828;
+      --badge-popular: #1565c0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
-      background-color: #f5f5f5;
+      background-color: var(--background);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .header {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1000/400');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      margin-bottom: 40px;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header h1 {
+      font-size: 50px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      color: white;
+    }
+    
+    .header p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin: 10px;
+    }
+    
+    .btn:hover {
+      background-color: #ff8f00;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
     
     .menu {
-      background-color: #fff;
-      max-width: 800px;
+      background-color: var(--card-bg);
       margin: 20px auto;
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
     
-    h1 {
-      font-family: 'Georgia', serif;
+    .menu-header {
       text-align: center;
-      font-size: 40px;
-      margin-bottom: 0;
-      color: #5d4037;
+      margin-bottom: 30px;
     }
     
-    .established {
-      text-align: center;
+    .menu-header h2 {
+      font-family: 'Georgia', serif;
+      font-size: 36px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .menu-header p {
+      color: var(--text-light);
       font-style: italic;
-      margin-top: 5px;
-      color: #795548;
+    }
+    
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .menu-tab {
+      background-color: var(--primary-light);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+    
+    .menu-tab.active {
+      background-color: var(--accent);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     hr {
       height: 2px;
-      background-color: #a1887f;
+      background-color: var(--primary-light);
       border: none;
       margin: 20px 0;
     }
@@ -49,7 +143,7 @@
       text-align: center;
       font-size: 28px;
       margin: 25px 0;
-      color: #5d4037;
+      color: var(--primary);
     }
     
     section {
@@ -58,166 +152,456 @@
       padding-bottom: 10px;
     }
     
-    section img {
-      display: block;
-      margin: 0 auto 15px;
+    .section-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .section-icon img {
       width: 80px;
-      height: auto;
+      height: 80px;
       border-radius: 50%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 5px;
+      background-color: white;
     }
     
     .item {
       display: flex;
       justify-content: space-between;
       margin: 15px 0;
-      padding-bottom: 5px;
-      border-bottom: 1px dotted #d7ccc8;
+      padding-bottom: 15px;
+      border-bottom: 1px dotted var(--border);
     }
     
-    .flavor, .dessert {
+    .item:hover {
+      transform: translateX(5px);
+      transition: transform 0.3s ease;
+    }
+    
+    .item-name {
       font-size: 18px;
+      font-weight: bold;
       flex-grow: 1;
       padding-right: 20px;
+      color: var(--primary-dark);
     }
     
     .price {
       font-size: 18px;
       font-weight: bold;
-      color: #4e342e;
+      color: var(--primary-dark);
     }
     
     .description {
       font-size: 14px;
       font-style: italic;
-      color: #6d4c41;
-      margin-top: 3px;
-      margin-bottom: 12px;
+      color: var(--text-light);
+      margin-top: 5px;
+    }
+    
+    .badge {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      margin-left: 10px;
+      font-weight: bold;
+      color: white;
+      display: inline-block;
     }
     
     .seasonal-badge {
-      background-color: #c62828;
-      color: white;
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 8px;
-      margin-left: 10px;
-      font-weight: bold;
+      background-color: var(--badge-seasonal);
     }
     
     .new-badge {
-      background-color: #2e7d32;
-      color: white;
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 8px;
-      margin-left: 10px;
+      background-color: var(--badge-new);
+    }
+    
+    .popular-badge {
+      background-color: var(--badge-popular);
+    }
+    
+    .featured {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    
+    .featured-item {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .featured-item:hover {
+      transform: translateY(-10px);
+    }
+    
+    .featured-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    
+    .featured-content {
+      padding: 20px;
+    }
+    
+    .featured-content h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .featured-content p {
+      color: var(--text-light);
+      margin-bottom: 15px;
+    }
+    
+    .featured-price {
+      color: var(--accent);
       font-weight: bold;
+      font-size: 18px;
     }
     
-    .bottom-line {
-      height: 2px;
-      background-color: #a1887f;
-      border: none;
-      margin: 30px 0 20px;
-    }
-    
-    footer {
+    .about {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 40px 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
     
-    footer a {
-      color: #5d4037;
-      text-decoration: none;
-      transition: color 0.3s;
+    .about h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
     }
     
-    footer a:hover {
-      color: #8d6e63;
-      text-decoration: underline;
-    }
-    
-    .address {
-      margin-top: 10px;
-      margin-bottom: 5px;
-      font-style: italic;
-    }
-    
-    .contact-info {
-      margin-top: 5px;
-      font-size: 14px;
+    .about p {
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .hours {
       background-color: #efebe9;
-      padding: 15px;
+      padding: 25px;
       border-radius: 10px;
-      margin: 20px 0;
+      margin: 30px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     
     .hours h3 {
       text-align: center;
-      margin-top: 0;
-      color: #5d4037;
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 24px;
     }
     
     .hours-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
     }
     
     .hours-item {
       display: flex;
       justify-content: space-between;
+      padding: 10px 15px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .hours-item span:first-child {
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    .testimonials {
+      margin: 40px 0;
+      text-align: center;
+    }
+    
+    .testimonials h2 {
+      margin-bottom: 30px;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial {
+      background-color: var(--card-bg);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .testimonial p {
+      flex-grow: 1;
+      font-style: italic;
+      margin-bottom: 15px;
+      color: var(--text);
+    }
+    
+    .testimonial-author {
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    .contact {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 40px 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .contact h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .contact-item h4 {
+      color: var(--primary);
+      margin: 10px 0;
+    }
+    
+    .map {
+      height: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    
+    .map img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .bottom-line {
+      height: 2px;
+      background-color: var(--primary-light);
+      border: none;
+      margin: 30px 0 20px;
+    }
+    
+    footer {
+      background-color: var(--primary-dark);
+      color: white;
+      padding: 40px 0 20px;
+      border-radius: 15px 15px 0 0;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .footer-section h3 {
+      color: white;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .footer-section p {
+      margin-bottom: 10px;
+      color: #d7ccc8;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-section a {
+      color: #d7ccc8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-section a:hover {
+      color: white;
+      text-decoration: underline;
     }
     
     .social-links {
       display: flex;
-      justify-content: center;
       gap: 15px;
       margin-top: 15px;
     }
     
-    .social-links a {
-      color: #5d4037;
-      font-size: 18px;
-      text-decoration: none;
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #795548;
+      color: #bcaaa4;
     }
     
-    .category-label {
-      background-color: #8d6e63;
-      color: white;
-      padding: 8px 15px;
-      border-radius: 20px;
-      display: inline-block;
-      margin: 0 auto 15px;
-      font-weight: bold;
-    }
-    
-    .category-container {
+    .newsletter {
       display: flex;
-      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .newsletter input {
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    
+    .newsletter button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .newsletter button:hover {
+      background-color: #ff8f00;
+    }
+    
+    @media (max-width: 768px) {
+      .menu-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      
+      .item {
+        flex-direction: column;
+      }
+      
+      .price {
+        margin-top: 5px;
+      }
+      
+      .hours-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .featured {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="menu">
-    <main>
-      <h1>MOUNTAIN BREW</h1>
-      <p class="established">Est. 2020</p>
+  <div class="container">
+    <header class="header">
+      <h1>MOUNTAIN BREW CAFE</h1>
+      <p>Crafting the Perfect Mountain Coffee Experience Since 2020</p>
+      <div>
+        <a href="#menu" class="btn">View Menu</a>
+        <a href="#contact" class="btn">Find Us</a>
+      </div>
+    </header>
+    
+    <section class="featured">
+      <div class="featured-item">
+        <img src="/api/placeholder/400/300" alt="Featured Coffee">
+        <div class="featured-content">
+          <h3>Signature Mocha</h3>
+          <p>Our award-winning mocha blend with rich chocolate and espresso.</p>
+          <p class="featured-price">$4.75</p>
+        </div>
+      </div>
+      
+      <div class="featured-item">
+        <img src="/api/placeholder/400/300" alt="Featured Pastry">
+        <div class="featured-content">
+          <h3>Cinnamon Roll</h3>
+          <p>Warm, gooey cinnamon roll with our special cream cheese frosting.</p>
+          <p class="featured-price">$3.50</p>
+        </div>
+      </div>
+      
+      <div class="featured-item">
+        <img src="/api/placeholder/400/300" alt="Featured Deal">
+        <div class="featured-content">
+          <h3>Coffee + Donut Deal</h3>
+          <p>Any coffee and artisan donut for a special price.</p>
+          <p class="featured-price">$5.00</p>
+        </div>
+      </div>
+    </section>
+    
+    <div class="about">
+      <h2>Our Story</h2>
+      <p>Nestled in the heart of Mountain View, Mountain Brew Cafe opened its doors in 2020 with a simple mission: to provide the perfect cup of coffee in a warm, welcoming environment. We source our beans directly from small-batch suppliers and roast them in-house to ensure the freshest, most flavorful cup possible.</p>
+      <p>Our pastries and treats are made fresh daily using local ingredients whenever possible. Come experience the Mountain Brew difference!</p>
+    </div>
+    
+    <div id="menu" class="menu">
+      <div class="menu-header">
+        <h2>OUR MENU</h2>
+        <p>Quality ingredients. Crafted with care. Served with a smile.</p>
+      </div>
+      
+      <div class="menu-tabs">
+        <div class="menu-tab active">Coffee Specialties</div>
+        <div class="menu-tab">Sweet Treats</div>
+        <div class="menu-tab">Breakfast</div>
+        <div class="menu-tab">Lunch</div>
+      </div>
+      
       <hr>
       
       <section>
-        <div class="category-container">
-          <div class="category-label">Coffee Specialties</div>
+        <div class="section-icon">
+          <img src="/api/placeholder/100/100" alt="coffee icon" />
         </div>
-        <img src="/api/placeholder/100/100" alt="coffee icon" />
         
         <article class="item">
           <div>
-            <p class="flavor">French Vanilla</p>
+            <p class="item-name">French Vanilla</p>
             <p class="description">Smooth and rich vanilla flavored coffee with a hint of caramel</p>
           </div>
           <p class="price">$3.50</p>
@@ -225,7 +609,7 @@
         
         <article class="item">
           <div>
-            <p class="flavor">Caramel Macchiato <span class="seasonal-badge">Popular</span></p>
+            <p class="item-name">Caramel Macchiato <span class="badge popular-badge">Popular</span></p>
             <p class="description">Espresso with steamed milk and vanilla, topped with caramel drizzle</p>
           </div>
           <p class="price">$4.25</p>
@@ -233,7 +617,7 @@
         
         <article class="item">
           <div>
-            <p class="flavor">Pumpkin Spice <span class="seasonal-badge">Seasonal</span></p>
+            <p class="item-name">Pumpkin Spice <span class="badge seasonal-badge">Seasonal</span></p>
             <p class="description">Our signature espresso with pumpkin spice syrup and whipped cream</p>
           </div>
           <p class="price">$4.50</p>
@@ -241,7 +625,7 @@
         
         <article class="item">
           <div>
-            <p class="flavor">Hazelnut</p>
+            <p class="item-name">Hazelnut</p>
             <p class="description">Rich espresso blended with the nutty flavor of hazelnut</p>
           </div>
           <p class="price">$4.00</p>
@@ -249,7 +633,7 @@
         
         <article class="item">
           <div>
-            <p class="flavor">Mocha <span class="new-badge">New</span></p>
+            <p class="item-name">Mocha <span class="badge new-badge">New</span></p>
             <p class="description">Chocolate and espresso blended with steamed milk and topped with whipped cream</p>
           </div>
           <p class="price">$4.75</p>
@@ -257,22 +641,29 @@
         
         <article class="item">
           <div>
-            <p class="flavor">Cold Brew</p>
+            <p class="item-name">Cold Brew</p>
             <p class="description">Slow-steeped for 24 hours for a smooth, rich flavor</p>
           </div>
           <p class="price">$4.50</p>
         </article>
-      </section>
-      
-      <section>
-        <div class="category-container">
-          <div class="category-label">Sweet Treats</div>
-        </div>
-        <img src="/api/placeholder/100/100" alt="dessert icon" />
         
         <article class="item">
           <div>
-            <p class="dessert">Artisan Donut</p>
+            <p class="item-name">Mountain Brew Special <span class="badge new-badge">New</span></p>
+            <p class="description">Our signature blend with hints of chocolate, cinnamon and a secret ingredient</p>
+          </div>
+          <p class="price">$5.25</p>
+        </article>
+      </section>
+      
+      <section>
+        <div class="section-icon">
+          <img src="/api/placeholder/100/100" alt="dessert icon" />
+        </div>
+        
+        <article class="item">
+          <div>
+            <p class="item-name">Artisan Donut</p>
             <p class="description">Fresh-baked daily, ask about today's flavors</p>
           </div>
           <p class="price">$2.25</p>
@@ -280,7 +671,7 @@
         
         <article class="item">
           <div>
-            <p class="dessert">Cherry Pie <span class="seasonal-badge">Seasonal</span></p>
+            <p class="item-name">Cherry Pie <span class="badge seasonal-badge">Seasonal</span></p>
             <p class="description">Homemade with tart cherries and flaky crust</p>
           </div>
           <p class="price">$3.75</p>
@@ -288,7 +679,7 @@
         
         <article class="item">
           <div>
-            <p class="dessert">New York Cheesecake</p>
+            <p class="item-name">New York Cheesecake</p>
             <p class="description">Classic creamy cheesecake with graham cracker crust</p>
           </div>
           <p class="price">$4.00</p>
@@ -296,7 +687,7 @@
         
         <article class="item">
           <div>
-            <p class="dessert">Cinnamon Roll <span class="new-badge">New</span></p>
+            <p class="item-name">Cinnamon Roll <span class="badge new-badge">New</span></p>
             <p class="description">Warm, gooey cinnamon roll with cream cheese frosting</p>
           </div>
           <p class="price">$3.50</p>
@@ -304,10 +695,18 @@
         
         <article class="item">
           <div>
-            <p class="dessert">Chocolate Brownie</p>
+            <p class="item-name">Chocolate Brownie</p>
             <p class="description">Rich, fudgy brownie with walnuts</p>
           </div>
           <p class="price">$3.25</p>
+        </article>
+        
+        <article class="item">
+          <div>
+            <p class="item-name">Mountain Cookie <span class="badge popular-badge">Popular</span></p>
+            <p class="description">Giant cookie with chocolate chips, nuts, and dried berries</p>
+          </div>
+          <p class="price">$2.75</p>
         </article>
       </section>
       
@@ -326,24 +725,96 @@
             <span>Sunday</span>
             <span>8:00 AM - 6:00 PM</span>
           </div>
+          <div class="hours-item">
+            <span>Holiday Hours</span>
+            <span>9:00 AM - 5:00 PM</span>
+          </div>
         </div>
       </div>
-      
-    </main>
+    </div>
     
-    <hr class="bottom-line">
+    <section class="testimonials">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <p>"The best coffee in town! I come here every morning before work, and the staff always remembers my order. The cinnamon rolls are to die for!"</p>
+          <span class="testimonial-author">- Sarah M.</span>
+        </div>
+        
+        <div class="testimonial">
+          <p>"Mountain Brew has the perfect atmosphere for getting work done. Great WiFi, plenty of outlets, and the Cold Brew keeps me going all afternoon."</p>
+          <span class="testimonial-author">- David L.</span>
+        </div>
+        
+        <div class="testimonial">
+          <p>"I'm obsessed with their seasonal specials! The Pumpkin Spice is the highlight of my fall. Can't wait to see what they come up with next!"</p>
+          <span class="testimonial-author">- Jessica T.</span>
+        </div>
+      </div>
+    </section>
+    
+    <div id="contact" class="contact">
+      <h2>Visit Us</h2>
+      <div class="map">
+        <img src="/api/placeholder/800/300" alt="Map location">
+      </div>
+      
+      <div class="contact-info">
+        <div class="contact-item">
+          <h4>Address</h4>
+          <p>123 Alpine Way</p>
+          <p>Mountain View, CA 94041</p>
+        </div>
+        
+        <div class="contact-item">
+          <h4>Contact</h4>
+          <p>Phone: (555) 123-4567</p>
+          <p>Email: hello@mountainbrew.com</p>
+        </div>
+        
+        <div class="contact-item">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <footer>
-      <p>
-        <a href="https://www.mountainbrewcafe.com" target="_blank">Visit our website</a>
-      </p>
-      <p class="address">123 Alpine Way, Mountain View</p>
-      <p class="contact-info">Phone: (555) 123-4567 | Email: hello@mountainbrew.com</p>
-      
-      <div class="social-links">
-        <a href="#" target="_blank">Facebook</a> |
-        <a href="#" target="_blank">Instagram</a> |
-        <a href="#" target="_blank">Twitter</a>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Mountain Brew</h3>
+            <p>Crafting the perfect coffee experience in Mountain View since 2020.</p>
+            <p>© 2025 Mountain Brew Cafe. All rights reserved.</p>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#menu">Menu</a></li>
+              <li><a href="#contact">Location</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">About Us</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Newsletter</h3>
+            <p>Subscribe to our newsletter for updates, events and special offers.</p>
+            <div class="newsletter">
+              <input type="email" placeholder="Your email">
+              <button>Subscribe</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="copyright">
+          <p>Website designed with ❤️ for Mountain Brew Cafe</p>
+        </div>
       </div>
     </footer>
   </div>
